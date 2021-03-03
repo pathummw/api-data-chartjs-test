@@ -2,6 +2,7 @@
 import { Component } from 'react';
 import './App.css';
 import { Bar, Line, Pie } from 'react-chartjs-2'
+import 'd3-scale-chromatic'
 
 class App extends Component {
 
@@ -57,37 +58,32 @@ class App extends Component {
 
     let goalArray = [];
     let playerArray = [];
+    let colorsArray = [];
+
+
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF'.split('');
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+
+
     return (
       <div>
-        {/* {this.state.loading || !this.state.country ?
-          (<div>Loading ... </div>)
-          :
-          (<div>
-            <div>{this.state.country.country}</div>
-            <img src={this.state.country.flag} alt="" />
 
-            <div>
-              <ul>{this.state.country.map(item => <li> {item.country}
-                <hr />
-                <img src={item.flag} style={{ height: 40 }} alt="" />
-              </li>)
-              }
-              </ul>
-            </div>
-
-          </div>)
-        } */}
         {this.state.loading || !this.state.leagueList ?
           (<div>Loading ... </div>)
           :
           (<div>
             <div>{this.state.leagueList.player_name}</div>
-            {/* <img src={this.state.country.flag} alt="" /> */}
 
             <div>
-              <ul>{this.state.leagueList.map(item => <li> {item.player_name} {playerArray.push(item.player_name)} {goalArray.push(item.goals.total)}
+              <ul>{this.state.leagueList.map(item => <li> {item.player_name} {playerArray.push(item.player_name)} {goalArray.push(item.goals.total)}  {colorsArray.push(getRandomColor())}
                 <hr />
-                {/* <img src={item.flag} style={{ height: 40 }} alt="" /> */}
                 {item.goals.total}
               </li>)
               }
@@ -108,12 +104,14 @@ class App extends Component {
                   /* data: [(goalArray.length) <= 0 ? goalArray : tempArr], */
                   data: (goalArray.length) <= 0 ? goalArray : goalArray,
                   /* [4, 5, 4, 3, 8, 9, 14] */
-                  backgroundColor: function (context) {
+                  /* backgroundColor: function (context) {
                     var index = context.dataIndex;
                     var value = context.dataset.data[index];
                     return index % 2 ? 'blue' :
                       'green';
-                  }
+                  } */
+
+                  backgroundColor: colorsArray,
 
 
                 }
