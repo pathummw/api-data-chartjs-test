@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.chart-container{
+  /* height: 800px;
+  height: auto;
+  background-color: crimson; */
+}
